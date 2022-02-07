@@ -1,0 +1,18 @@
+<launch>
+    <arg name="namespace"   default="pioneer3at"/>
+    <arg name="lidar"       default="Sick_LMS_291"/>
+    <arg name="GPS"         default="GPS"/>
+    <arg name="camera"      default="camera"/>
+    <arg name="imu_rpy"     default="inertial_unit"/>
+    <arg name="imu_gyro"    default="gyro"/>
+    <arg name="imu_acc"     default="accelerometer"/>
+    <arg name="PI"          default="3.1415926"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0      0     0     0   0         0     $(arg namespace)/base_footprint   $(arg namespace)/base_link       100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_GPS"            args="0      0     0     0   0         0     $(arg namespace)/base_link        $(arg namespace)/$(arg GPS)      100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar"          args="0.136  0     0.230 0   0         $(arg PI)     $(arg namespace)/base_link        $(arg namespace)/$(arg lidar)    100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_rpy"        args="0      0     0     0   0         0     $(arg namespace)/base_link        $(arg namespace)/$(arg imu_rpy)  100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_gyro"       args="0      0     0     0   0         0     $(arg namespace)/base_link        $(arg namespace)/$(arg imu_gyro) 100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_acc"        args="0      0     0     0   0         0     $(arg namespace)/base_link        $(arg namespace)/$(arg imu_acc)  100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_camera"         args="0.220  0     0.170 0   0         0     $(arg namespace)/base_link        $(arg namespace)/$(arg camera)   100" />
+</launch>
